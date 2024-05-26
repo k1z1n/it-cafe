@@ -1,0 +1,65 @@
+{
+    "name": "coduo/php-humanizer",
+    "type": "library",
+    "description": "Humanize values that are readable only for developers",
+    "keywords": ["php", "humanize", "humanizer"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Michał Dąbrowski",
+            "email": "dabrowski@brillante.pl"
+        },
+        {
+            "name": "Norbert Orzechowicz",
+            "email": "norbert@orzechowicz.pl"
+        }
+    ],
+    "require": {
+        "php": "~8.1 || ~8.2 || ~8.3",
+        "symfony/translation": "~5.4||~6.4||~7",
+        "symfony/yaml": "~5.4||~6.4||~7",
+        "aeon-php/calendar": "^1.0"
+    },
+    "require-dev": {
+        "thunderer/shortcode": "^0.7"
+    },
+    "config": {
+        "bin-dir": "bin"
+    },
+    "autoload": {
+        "psr-4": {
+            "": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "": "tests/"
+        }
+    },
+    "suggest": {
+        "ext-intl": "Required if you are going to use humanizer with locales different than en_EN"
+    },
+    "scripts": {
+        "build": [
+            "@static:analyze",
+            "@test"
+        ],
+        "test": [
+            "tools/vendor/bin/phpunit"
+        ],
+        "static:analyze": [
+            "tools/vendor/bin/psalm --output-format=compact",
+            "tools/vendor/bin/phpstan analyze -c phpstan.neon",
+            "tools/vendor/bin/php-cs-fixer fix --dry-run"
+        ],
+        "cs:php:fix": "tools/vendor/bin/php-cs-fixer fix",
+        "tools:install": "composer install --working-dir=./tools",
+        "tools:update": "composer update --working-dir=./tools",
+        "post-install-cmd": [
+            "@tools:install"
+        ],
+        "post-update-cmd": [
+            "@tools:update"
+        ]
+    }
+}
